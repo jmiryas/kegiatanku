@@ -1,0 +1,4 @@
+enum SelectedTimelineEnum {
+  semua,
+  harian,
+}

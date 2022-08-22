@@ -1,0 +1,4 @@
+enum TimelineStatusEnum {
+  all,
+  single,
+}
