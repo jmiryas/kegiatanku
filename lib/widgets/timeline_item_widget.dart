@@ -27,7 +27,7 @@ class TimelineItemWidget extends StatelessWidget {
               ),
           indicatorTheme: TimelineTheme.of(context).indicatorTheme.copyWith(
                 size: 10.0,
-                position: 0.15,
+                position: 0.13,
                 color: Theme.of(context).primaryColor,
               ),
         ),

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../models/task_model.dart';
 import '../widgets/column_widget.dart';
 import '../providers/timeline_provider.dart';
+import '../widgets/toggle_icon_button_widget.dart';
 
 class TaskItemWidget extends StatelessWidget {
   final String timelineId;
@@ -19,6 +20,9 @@ class TaskItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     DateFormat dateFormatTask = DateFormat("HH:mm");
+
+    String startTime = dateFormatTask.format(task.startTime);
+    String endTime = dateFormatTask.format(task.endTime);
 
     return ListTile(
       title: Text(
@@ -47,8 +51,7 @@ class TaskItemWidget extends StatelessWidget {
             const SizedBox(
               height: 5.0,
             ),
-            Text(
-                "${dateFormatTask.format(task.startTime)} - ${dateFormatTask.format(task.endTime)}"),
+            Text("$startTime - $endTime"),
             const SizedBox(
               height: 10.0,
             ),
@@ -79,16 +82,7 @@ class TaskItemWidget extends StatelessWidget {
             );
           });
         },
-        icon: !task.isComplete
-            ? const Icon(
-                Icons.toggle_off,
-                size: 35.0,
-              )
-            : Icon(
-                Icons.toggle_on,
-                size: 35.0,
-                color: Theme.of(context).primaryColor,
-              ),
+        icon: ToggleIconButtonWidget(isComplete: task.isComplete),
       ),
     );
   }

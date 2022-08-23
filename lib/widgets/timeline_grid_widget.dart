@@ -20,30 +20,31 @@ class TimelineGridWidget extends StatelessWidget {
         children: timelines.map((timeline) {
       String timelineTitle = dateFormat.format(DateTime.parse(timeline.id));
 
-      return GestureDetector(
-        onLongPress: () {
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialogRemoveTimelineWidget(timelineId: timeline.id);
-              });
-        },
-        child: Card(
-          child: ExpansionTile(
-            iconColor: Theme.of(context).primaryColor,
-            collapsedIconColor: Theme.of(context).primaryColor,
-            title: Text(
+      return Card(
+        child: ExpansionTile(
+          iconColor: Theme.of(context).primaryColor,
+          collapsedIconColor: Theme.of(context).primaryColor,
+          title: GestureDetector(
+            onLongPress: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialogRemoveTimelineWidget(
+                        timelineId: timeline.id);
+                  });
+            },
+            child: Text(
               timelineTitle,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
               ),
             ),
-            children: [
-              TimelineItemWidget(
-                timeline: timeline,
-              ),
-            ],
           ),
+          children: [
+            TimelineItemWidget(
+              timeline: timeline,
+            ),
+          ],
         ),
       );
     }).toList());
