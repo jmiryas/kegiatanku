@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kegiatanku/widgets/custom_warning_alert_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../models/unplaned_task_model.dart';
@@ -46,26 +47,39 @@ class AddNewUnplanedTaskWidget extends StatelessWidget {
         ),
         TextButton(
           onPressed: () async {
-            UnplanedTaskModel unplanedTask = UnplanedTaskModel(
-              id: DateTime.now().toString(),
-              title: taskNameController.text,
-              description: taskDescriptionController.text,
-            );
-
-            await Provider.of<UnplanedTaskProvider>(context, listen: false)
-                .addUnplanedTask(unplanedTask)
-                .whenComplete(() {
-              ScaffoldMessenger.of(context).hideCurrentSnackBar();
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Kegiatan berhasil ditambahkan"),
-                  duration: Duration(seconds: 1),
-                ),
+            if (taskNameController.text.isEmpty ||
+                taskDescriptionController.text.isEmpty) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return const CustomWarningAlertWidget(
+                      title: "Pemberitahuan",
+                      content:
+                          "Nama dan deskripsi kegiatan tidak boleh kosong!",
+                    );
+                  });
+            } else {
+              UnplanedTaskModel unplanedTask = UnplanedTaskModel(
+                id: DateTime.now().toString(),
+                title: taskNameController.text,
+                description: taskDescriptionController.text,
               );
 
-              Navigator.of(context).pop();
-            });
+              await Provider.of<UnplanedTaskProvider>(context, listen: false)
+                  .addUnplanedTask(unplanedTask)
+                  .whenComplete(() {
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Kegiatan berhasil ditambahkan"),
+                    duration: Duration(seconds: 1),
+                  ),
+                );
+
+                Navigator.of(context).pop();
+              });
+            }
           },
           child: const Text("OK"),
         ),
