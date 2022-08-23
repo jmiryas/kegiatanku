@@ -1,12 +1,8 @@
 # Kegiatanku
 
----
-
 Sebuah aplikasi untuk mendukung produktivitas. Dibuat dengan menggunakan Flutter. Terinspirasi dari aplikasi Taskito.
 
 # Fitur
-
----
 
 Berikut adalah fitur dari aplikasi ini:
 
@@ -19,8 +15,6 @@ Berikut adalah fitur dari aplikasi ini:
 2. Membuat task tanpa jadwal.
 
 # Demo
-
----
 
 Berikut adalah demo dari aplikasi ini:
 
