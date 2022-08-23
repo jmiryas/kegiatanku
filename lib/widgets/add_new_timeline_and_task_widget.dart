@@ -7,6 +7,7 @@ import '../models/task_model.dart';
 import '../providers/timeline_provider.dart';
 import '../widgets/cupertino_theme_widget.dart';
 import '../widgets/text_form_field_widget.dart';
+import '../widgets/custom_warning_alert_widget.dart';
 
 class AddNewTimelineAndTaskWidget extends StatelessWidget {
   const AddNewTimelineAndTaskWidget({
@@ -183,24 +184,25 @@ class AddNewTimelineAndTaskWidget extends StatelessWidget {
             ),
             TextButton(
               onPressed: () async {
-                if (taskNameController.text.isEmpty) {
+                if (taskNameController.text.isEmpty ||
+                    taskDescriptionController.text.isEmpty) {
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text(
-                            "Alert",
-                            textAlign: TextAlign.center,
-                          ),
+                        return const CustomWarningAlertWidget(
+                          title: "Pemberitahuan",
                           content:
-                              const Text("Nama kegiatan tidak boleh kosong!"),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text("OK"))
-                          ],
+                              "Nama kegiatan dan deskripsi tidak boleh kosong!",
+                        );
+                      });
+                } else if (startTime.isEmpty || endTime.isEmpty) {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return const CustomWarningAlertWidget(
+                          title: "Pemberitahuan",
+                          content:
+                              "Waktu kegiatan tidak boleh ada yang kosong!",
                         );
                       });
                 } else {
